@@ -1,5 +1,14 @@
 #!/bin/sh -e
+# start pigpiod and plottybot on boot
+# pigpiod is a daemon that allows plottybot to control the GPIO pins on the Raspberry Pi
 /usr/bin/pigpiod
+# plottybot is the main program that controls the plotter
 rm /var/log/plottybot.stderr.log || true
 /usr/bin/screen -S plottybot -dm sh -c "/usr/local/bin/plottybot.py 2>/var/log/plottybot.stderr.log"
+# now wait for plottybot to start up
+sleep 5
+# we are also starting plottybot_scratch a bridge between Scratch and plottybot
+rm /var/log/plottybot_scratch.stderr.log || true
+/usr/bin/screen -S plottybot_scratch -dm sh -c "/usr/local/bin/plottybot_scratch.py 2>/var/log/plottybot_scratch.stderr.log"
+# exit with status 0 to indicate success
 exit 0
