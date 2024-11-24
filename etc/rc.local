@@ -6,7 +6,7 @@
 rm /var/log/plottybot.stderr.log || true
 /usr/bin/screen -S plottybot -dm sh -c "/usr/local/bin/plottybot.py 2>/var/log/plottybot.stderr.log"
 # now wait for plottybot to start up
-sleep 5
+sleep 30
 # we are also starting plottybot_scratch a bridge between Scratch and plottybot
 rm /var/log/plottybot_scratch.stderr.log || true
 /usr/bin/screen -S plottybot_scratch -dm sh -c "/usr/local/bin/plottybot_scratch.py 2>/var/log/plottybot_scratch.stderr.log"
